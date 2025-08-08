@@ -1,0 +1,8 @@
+.dashboard-parent{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+}
+.event{
+    width: 100%;
+}
