@@ -9,7 +9,7 @@ const NavBar = function () {
         // Clear all authentication data
         localStorage.removeItem("token");
         localStorage.removeItem("userid");
-        navigate('/login'); // Redirect to login page
+        navigate('/'); // Redirect to login page
     };
 
     return (

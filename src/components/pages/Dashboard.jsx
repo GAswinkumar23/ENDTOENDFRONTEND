@@ -2,16 +2,16 @@ import NavBar from '../DashboardComponents/NavBar';
 import SideBarDetails from '../DashboardComponents/SideBarDetails';
 import Events from '../DashboardComponents/Events';
 import '../../styles/Pages/Dashboard.css'
-const Dashboard=()=>{
+const Dashboard=({userid})=>{
     return(
     <>
         <NavBar/>
         <div className='dashboard-parent'>
             <div className="side">
-           <SideBarDetails/>
+           <SideBarDetails userid={userid}/>
         </div>
         <div className='event'>
-            <Events />
+            <Events userid={userid}/>
         </div>
         </div>
     </>);

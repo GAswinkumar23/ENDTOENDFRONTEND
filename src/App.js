@@ -5,13 +5,14 @@ import Signup from './components/AuthenticationForms/signup'
 import Dashboard from './components/pages/Dashboard';
 import AddEvents from './components/AddEvents/AddEvents';
 function App() {
+  const userId=localStorage.getItem('UserId');
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          <Route path='/dashboard/:userid' element={<Dashboard/>}/>
+          <Route path='/dashboard/:userid' element={<Dashboard userid={userId}/>}/>
           <Route path='/events/add' element={<AddEvents/>}/>
         </Routes>
       </Router>

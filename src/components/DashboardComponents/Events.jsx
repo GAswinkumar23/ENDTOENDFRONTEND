@@ -1,55 +1,21 @@
-import { useEffect, useState } from "react";
+//import { useEffect } from "react";
 import { CheckCircle, Circle, Clock, Edit, Trash2, Plus } from "react-feather";
 import '../../styles/DashboardComponent/Events.css';
 import { useNavigate } from "react-router-dom";
+import useDetails from "../CustomHook/useDetails";
 
-const Events = () => {
+const Events = ({ userid }) => {
     const navigator = useNavigate();
-    // const [userid, setUserid] = useState('');
-    const [name, setName] = useState('');
-    const [events, setEvents] = useState([
-        {
-            id: 1,
-            description: "Team meeting with project stakeholders",
-            time: "2025-08-07T10:00:00",
-            reminder: true,
-            completed: false
-        },
-        {
-            id: 2,
-            description: "Doctor appointment",
-            time: "2025-08-08T15:30:00",
-            reminder: false,
-            completed: true
-        },
-        {
-            id: 3,
-            description: "Submit monthly report",
-            time: "2025-08-09T09:00:00",
-            reminder: true,
-            completed: false
-        },
-        {
-            id: 4,
-            description: "Call with client",
-            time: "2025-08-10T13:45:00",
-            reminder: false,
-            completed: false
-        }
-    ]);
-    console.log(name);
-    useEffect(() => {
-        setName("aswinkumatg");
-    }, []);
+    const { events, setEvent, uname } = useDetails(userid);
 
     const toggleStatus = (id) => {
-        setEvents(events.map(event => 
-            event.id === id ? {...event, completed: !event.completed} : event
+        setEvent(events.map(event =>
+            event._id === id ? { ...event, completed: !event.completed } : event
         ));
     };
 
     const deleteEvent = (id) => {
-        setEvents(events.filter(event => event.id !== id));
+        setEvent(events.filter(event => event._id !== id));
     };
 
     const formatTime = (dateTime) => {
@@ -64,13 +30,13 @@ const Events = () => {
 
     return (
         <div className="events-container">
-            <h2>My Events</h2>
+            <h2>{uname ? `${uname}'s Events` : "My Events"}</h2>
             <div className="events-list">
                 {events.map((event) => (
-                    <div key={event.id} className={`event-card ${event.completed ? 'completed' : ''}`}>
-                        <div className="event-status" onClick={() => toggleStatus(event.id)}>
-                            {event.completed ? 
-                                <CheckCircle size={20} className="completed-icon" /> : 
+                    <div key={event._id} className={`event-card ${event.completed ? 'completed' : ''}`}>
+                        <div className="event-status" onClick={() => toggleStatus(event._id)}>
+                            {event.completed ?
+                                <CheckCircle size={20} className="completed-icon" /> :
                                 <Circle size={20} className="pending-icon" />
                             }
                         </div>
@@ -86,14 +52,14 @@ const Events = () => {
                             <button className="edit-btn">
                                 <Edit size={16} />
                             </button>
-                            <button className="delete-btn" onClick={() => deleteEvent(event.id)}>
+                            <button className="delete-btn" onClick={() => deleteEvent(event._id)}>
                                 <Trash2 size={16} />
                             </button>
                         </div>
                     </div>
                 ))}
             </div>
-            <button onClick={()=>{navigator('/events/add')}}className="add-event-btn">
+            <button onClick={() => { navigator('/events/add') }} className="add-event-btn">
                 <Plus size={18} />
                 Add New Event
             </button>

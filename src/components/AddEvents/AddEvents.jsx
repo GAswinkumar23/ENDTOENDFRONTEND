@@ -25,7 +25,7 @@ const AddEvents = () => {
             alert(response.data.message);
             if(response.data.status === 201) {
                 alert("Event added successfully");
-                navigate('/dashboard');
+                navigate(`/dashboard/${userId}`);
             }
         }).catch((error) => {
             console.error("There was an error adding the event!", error);

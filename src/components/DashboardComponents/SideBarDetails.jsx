@@ -2,24 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Calendar, User, Mail, Phone, Settings, LogOut, Home, PieChart, FileText, Users, Bell } from "react-feather";
 import '../../styles/DashboardComponent/SideBar.css'
 import pic from '../../Resources/Images/image.png'
+import useDetails from "../CustomHook/useDetails";
 
-const SideBarDetails = function () {
-    const [details, setDetails] = useState({
-        name: "John Doe",
-        email: "john.doe@example.com",
-        mobile: "+1 (555) 123-4567"
-    });
+const SideBarDetails = function ({ userid }) {
+    const { uname, email, mobile } = useDetails(userid);
 
     const [currentDate, setCurrentDate] = useState("");
 
     useEffect(() => {
-        // Update name once on mount
-        setDetails(prev => ({
-            ...prev,
-            name: "asin"
-        }));
-
-        // Update current date
         const date = new Date();
         setCurrentDate(date.toLocaleDateString('en-US', {
             weekday: 'long',
@@ -27,7 +17,7 @@ const SideBarDetails = function () {
             day: 'numeric',
             year: 'numeric'
         }));
-    }, []); // <- runs once
+    }, []);
 
     const menuItems = [
         { icon: <Home size={18} />, label: "Dashboard" },
@@ -47,15 +37,15 @@ const SideBarDetails = function () {
                 <div className="profile-details">
                     <div className="detail-item">
                         <User size={16} className="icon" />
-                        <span>{details.name}</span>
+                        <span>{uname}</span>
                     </div>
                     <div className="detail-item">
                         <Mail size={16} className="icon" />
-                        <span>{details.email}</span>
+                        <span>{email}</span>
                     </div>
                     <div className="detail-item">
                         <Phone size={16} className="icon" />
-                        <span>{details.mobile}</span>
+                        <span>{mobile}</span>
                     </div>
                     <div className="detail-item">
                         <Calendar size={16} className="icon" />
