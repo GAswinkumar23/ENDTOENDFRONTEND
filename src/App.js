@@ -3,6 +3,7 @@ import './App.css';
 import Login from './components/AuthenticationForms/login';
 import Signup from './components/AuthenticationForms/signup'
 import Dashboard from './components/pages/Dashboard';
+import AddEvents from './components/AddEvents/AddEvents';
 function App() {
   return (
     <div className="App">
@@ -10,8 +11,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          <Route path='/dashboard' element={<Dashboard/>}>
-          </Route>
+          <Route path='/dashboard/:userid' element={<Dashboard/>}/>
+          <Route path='/events/add' element={<AddEvents/>}/>
         </Routes>
       </Router>
     </div>

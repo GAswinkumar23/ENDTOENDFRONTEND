@@ -8,7 +8,12 @@ const Signup = function () {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handlesignup = async () => {
+  const handlesignup = async (e) => {
+    e.preventDefault();
+    if (!name || !email || !mobile || !password) {
+      alert("Please fill all fields");
+      return;
+    }
     try {
       const response = await fetch("http://localhost:5000/api/signup", {
         method: "POST",
@@ -32,6 +37,7 @@ const Signup = function () {
       alert("Something went wrong. Please try again.", error);
     }
   };
+  // middle ware functions
 const handlelogintoken = async () => {
   const token = localStorage.getItem("token");
   const storedUserId = localStorage.getItem("UserId");

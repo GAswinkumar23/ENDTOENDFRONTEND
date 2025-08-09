@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { CheckCircle, Circle, Clock, Edit, Trash2, Plus } from "react-feather";
 import '../../styles/DashboardComponent/Events.css';
+import { useNavigate } from "react-router-dom";
 
 const Events = () => {
+    const navigator = useNavigate();
+    // const [userid, setUserid] = useState('');
     const [name, setName] = useState('');
     const [events, setEvents] = useState([
         {
@@ -36,7 +39,7 @@ const Events = () => {
     ]);
     console.log(name);
     useEffect(() => {
-        setName("awinkumatg");
+        setName("aswinkumatg");
     }, []);
 
     const toggleStatus = (id) => {
@@ -90,7 +93,7 @@ const Events = () => {
                     </div>
                 ))}
             </div>
-            <button className="add-event-btn">
+            <button onClick={()=>{navigator('/events/add')}}className="add-event-btn">
                 <Plus size={18} />
                 Add New Event
             </button>
