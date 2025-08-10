@@ -4,6 +4,7 @@ import Login from './components/AuthenticationForms/login';
 import Signup from './components/AuthenticationForms/signup'
 import Dashboard from './components/pages/Dashboard';
 import AddEvents from './components/AddEvents/AddEvents';
+import ProfilePage from './components/DashboardComponents/ProfileSection';
 function App() {
   const userId=localStorage.getItem('UserId');
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/dashboard/:userid' element={<Dashboard userid={userId}/>}/>
           <Route path='/events/add' element={<AddEvents/>}/>
+          <Route path='/profilesection' element={<ProfilePage/>}/>
         </Routes>
       </Router>
     </div>

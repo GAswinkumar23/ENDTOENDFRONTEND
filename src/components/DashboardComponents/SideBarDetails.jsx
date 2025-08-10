@@ -11,7 +11,7 @@ const SideBarDetails = function ({ userid }) {
 
     useEffect(() => {
         const date = new Date();
-        setCurrentDate(date.toLocaleDateString('en-US', {
+        setCurrentDate(date.toLocaleDateString('en-IN', {
             weekday: 'long',
             month: 'long',
             day: 'numeric',

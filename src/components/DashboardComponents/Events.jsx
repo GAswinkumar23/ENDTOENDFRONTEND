@@ -3,6 +3,7 @@ import { CheckCircle, Circle, Clock, Edit, Trash2, Plus } from "react-feather";
 import '../../styles/DashboardComponent/Events.css';
 import { useNavigate } from "react-router-dom";
 import useDetails from "../CustomHook/useDetails";
+import axios from "axios";
 
 const Events = ({ userid }) => {
     const navigator = useNavigate();
@@ -14,20 +15,37 @@ const Events = ({ userid }) => {
         ));
     };
 
-    const deleteEvent = (id) => {
-        setEvent(events.filter(event => event._id !== id));
-    };
+    const deleteEvent = async(id) => {
+        try{
+        const response= await axios.delete(`http://localhost:5000/event/${id}`);
+        if(response.status!==200)
+        {
+            alert(response.data.message);
+            return;
+        }
 
-    const formatTime = (dateTime) => {
-        const date = new Date(dateTime);
-        return date.toLocaleString('en-US', {
+        setEvent(events.filter(event => event._id !== id));
+    }
+    catch(error) {
+            alert("error in event deleting frontend",error)
+    }
+    };
+    const formatTime = (date, time) => {
+        if (!date && !time) return "Nodate";
+        const datePart = new Date(date).toISOString().split("T")[0];
+
+        const combine = new Date(`${datePart}T${time}`);
+        console.log(combine,datePart);
+        if (isNaN(combine.getTime())) return "Invalid Date/Time";
+        return combine.toLocaleString('en-IN', {
+            year: 'numeric',
             month: 'short',
             day: 'numeric',
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
+            hour12: true
         });
-    };
-
+    }
     return (
         <div className="events-container">
             <h2>{uname ? `${uname}'s Events` : "My Events"}</h2>
@@ -44,7 +62,7 @@ const Events = ({ userid }) => {
                             <h3>{event.description}</h3>
                             <div className="event-time">
                                 <Clock size={16} />
-                                <span>{formatTime(event.time)}</span>
+                                <span>{formatTime(event.date, event.time)}</span>
                                 {event.reminder && <span className="reminder-badge">Reminder</span>}
                             </div>
                         </div>
@@ -52,7 +70,9 @@ const Events = ({ userid }) => {
                             <button className="edit-btn">
                                 <Edit size={16} />
                             </button>
-                            <button className="delete-btn" onClick={() => deleteEvent(event._id)}>
+                            <button className="delete-btn" onClick={() => {
+                                console.log(event._id) 
+                                deleteEvent(event._id)}}>
                                 <Trash2 size={16} />
                             </button>
                         </div>
