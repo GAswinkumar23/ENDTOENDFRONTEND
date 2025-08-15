@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 import '../../styles/AuthenticationForms/signup.css';
 const Signup = function () {
   const [name, setName] = useState("");
@@ -39,32 +38,7 @@ const Signup = function () {
   };
   // middle ware functions
 const handlelogintoken = async () => {
-  const token = localStorage.getItem("token");
-  const storedUserId = localStorage.getItem("UserId");
-
-  if (!token || !storedUserId) {
-    return navigate('/');
-  }
-
-  try {
-    const response = await axios.get(`http://localhost:5000/api/user/${storedUserId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    const user = response.data.user;
-    const userId = user.id;
-    localStorage.setItem("UserId", userId);
-
-    if (user && userId) {
-      return navigate(`/dashboard/${userId}`);
-    } else {
-      return navigate('/');
-    }
-  } catch (error) {
-    return navigate('/');
-  }
+   return navigate("/");
 };
   return (
     <>

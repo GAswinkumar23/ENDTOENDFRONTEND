@@ -25,7 +25,7 @@ const NavBar = function () {
                     <li className="nav-item" onClick={() => navigate('/home')}>
                         Home
                     </li>
-                    <li className="nav-item" onClick={() => navigate('/profile/edit')}>
+                    <li className="nav-item" onClick={() => navigate('/profilesection')}>
                         Edit Profile
                     </li>
                     <li className="nav-item" onClick={() => navigate('/history')}>

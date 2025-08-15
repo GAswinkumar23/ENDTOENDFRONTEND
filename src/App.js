@@ -6,16 +6,16 @@ import Dashboard from './components/pages/Dashboard';
 import AddEvents from './components/AddEvents/AddEvents';
 import ProfilePage from './components/DashboardComponents/ProfileSection';
 function App() {
-  const userId=localStorage.getItem('UserId');
+  const userId=localStorage.getItem('userid');
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path='/signup' element={<Signup/>}/>
-          <Route path='/dashboard/:userid' element={<Dashboard userid={userId}/>}/>
-          <Route path='/events/add' element={<AddEvents/>}/>
-          <Route path='/profilesection' element={<ProfilePage/>}/>
+          <Route path='/dashboard' element={<Dashboard userid={userId}/>}/>
+          <Route path='/events/add' element={<AddEvents userid={userId}/>}/>
+          <Route path='/profilesection' element={<ProfilePage userid={userId}/>}/>
         </Routes>
       </Router>
     </div>

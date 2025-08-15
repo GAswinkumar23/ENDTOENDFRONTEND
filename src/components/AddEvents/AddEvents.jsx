@@ -2,14 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../../styles/DashboardComponent/AddEvent.css';
-const AddEvents = () => {
+const AddEvents = ({userid}) => {
     const [eventName, setEventName]= useState("");
     const [eventDescription, setEventDescription] = useState("");
     const [eventdate, setEventDate] = useState("");
     const [eventTime, setEventTime] = useState("");
     const [eventPriority, setEventPriority] = useState("low");
     const navigate = useNavigate();
-    const userId = localStorage.getItem("UserId");
     const handlehubmit=(e)=> 
     {
         e.preventDefault();
@@ -19,13 +18,13 @@ const AddEvents = () => {
             date: eventdate,
             time: eventTime,
             priority: eventPriority,
-             userId: userId
+             userId: userid
         }).then((response) => {
             console.log(response.data);
             alert(response.data.message);
-            if(response.data.status === 201) {
+            if(response.data.status === 200) {
                 alert("Event added successfully");
-                navigate(`/dashboard/${userId}`);
+                navigate(`/dashboard`);
             }
         }).catch((error) => {
             console.error("There was an error adding the event!", error);
